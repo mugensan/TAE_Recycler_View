@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PersonAdapter.OnPersonClickedListener {
 
     private RecyclerView rv_list;
     private ArrayList<Person>personList;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         rv_list = findViewById(R.id.rv_list);
 
-        personAdapter = new PersonAdapter(personList);
+        personAdapter = new PersonAdapter(personList,this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv_list.setLayoutManager(layoutManager);
@@ -54,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.i(TAG, "firstName: " + personList.get(3).getFirstName());
         return personList;
+
+    }
+
+    @Override
+    public void onItemClick(Person person) {
+        Toast.makeText(this,"Person name is: " + person.getFirstName(),Toast.LENGTH_SHORT).show();
 
     }
 }
